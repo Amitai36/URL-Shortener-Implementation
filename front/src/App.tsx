@@ -1,11 +1,10 @@
+import UrlForm from "./pages/UrlForm"
 
 function App() {
 
   return (
     <>
-      <div>
-        
-      </div>
+      <UrlForm />
     </>
   )
 }
