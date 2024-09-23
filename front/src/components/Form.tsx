@@ -13,7 +13,7 @@ function Form() {
     const { register, handleSubmit } = useForm<FormData>();
 
     const onSubmit = async (data: FormData) => {
-        const response = await axios.post('http://localhost:5000/api/url/shorten', data);
+        const response = await axios.post('http://localhost:3000/api/url/shorten', data);
         alert(`Short URL: ${response.data.shortUrl}`);
     };
 

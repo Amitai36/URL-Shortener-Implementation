@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //get all can get and post here
 app.use(cors());
 //where / go to api routing
-app.use("/", api)
+app.use("/api", api)
 //listen to 3000 port
 app.listen(port, () => {
     console.log("listen to port 3000")
