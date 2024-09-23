@@ -1,11 +1,10 @@
 import base62 from "base62"
-import express, { Request, Response } from "express"
+import { Request, Response } from "express"
 
 import { UrlModel } from "../modules/url"
 
 export const shorten = async (req: Request<{}, {}, { longUrl: string, expiresIn: number }>, res: Response) => {
-    const { longUrl, expiresIn } = req.body;
-    console.log("hi")
+    const { longUrl, expiresIn, } = req.body;
     const existingUrl = await UrlModel.findOne({ longUrl });
     if (existingUrl) {
         return res.json({ shortUrl: existingUrl.shortUrl });

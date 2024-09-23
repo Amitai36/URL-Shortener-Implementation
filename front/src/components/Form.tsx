@@ -2,20 +2,15 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Button, TextField, Container, Typography } from '@mui/material';
 
-interface FormData {
-    longUrl: string;
-    shortUrl: string
-    expiresIn?: number;
-}
-
+import { FormData } from '../api/types';
+import { useAddShortUrl } from '../api/query';
 
 function Form() {
-
     const { register, handleSubmit } = useForm<FormData>();
+    const { mutate } = useAddShortUrl()
 
     const onSubmit = async (data: FormData) => {
-        const response = await axios.post('http://localhost:3000/api/url/shorten', data);
-        alert(`Short URL: ${response.data.shortUrl}`);
+        mutate({ ...data })
     };
 
     return (
