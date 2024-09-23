@@ -4,6 +4,7 @@ import { Button, TextField, Container, Typography } from '@mui/material';
 
 interface FormData {
     longUrl: string;
+    shortUrl: string
     expiresIn?: number;
 }
 
@@ -26,6 +27,12 @@ function Form() {
                     variant="outlined"
                     fullWidth
                     {...register('longUrl', { required: true })}
+                />
+                <TextField
+                    label="short URL"
+                    variant="outlined"
+                    fullWidth
+                    {...register('shortUrl', { required: true })}
                 />
                 <TextField
                     label="Expiration (seconds)"
