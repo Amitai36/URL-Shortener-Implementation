@@ -1,10 +1,14 @@
-import UrlForm from "./pages/UrlForm"
+import { Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
+// import UrlForm from "./pages/UrlForm"
 
 function App() {
 
   return (
     <>
-      <UrlForm />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </>
   )
 }

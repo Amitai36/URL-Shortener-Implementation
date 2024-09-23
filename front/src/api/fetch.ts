@@ -10,4 +10,9 @@ export const addShorten = async (data: FormData) => {
 export const getShorten = async (data: FormData) => {
     const response = await axios.get<FormData>(`http://localhost:3000/api/url/shorten/${1}`,);
     return response.data
+}
+
+export const getAllShorten = async () => {
+    const response = await axios.get<FormData["shortUrl"]>(`http://localhost:3000/api/url`,);
+    return response.data
 } 

@@ -34,3 +34,8 @@ export const getShortUrl = async (req: Request, res: Response) => {
 
     res.redirect(urlData.longUrl);
 }
+
+export const getAllShortUrl = async (req: Request, res: Response) => {
+    const urls = await UrlModel.find().select("shortUrl _id")
+    res.json(urls)
+}

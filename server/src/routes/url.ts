@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getShortUrl, shorten } from "../controllers/url";
+import { getAllShortUrl, getShortUrl, shorten } from "../controllers/url";
 
 const router = Router();
 
@@ -8,5 +8,7 @@ router.post("/shorten", shorten);
 
 //get req
 router.get("/:shortUrl", getShortUrl);
+
+router.get("/", getAllShortUrl);
 
 export default router;

@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "react-query";
 
-import { addShorten, getShorten } from "./fetch";
+import { addShorten, getAllShorten, getShorten } from "./fetch";
 
 export const useAddShortUrl = () => {
     return useMutation(["url"], addShorten, {
@@ -12,4 +12,8 @@ export const useAddShortUrl = () => {
 
 export const useGetShortUrl = () => {
     useQuery(["url", getShorten])
+};
+
+export const useGetAllShortUrl = () => {
+    useQuery(["url", getAllShorten])
 };
