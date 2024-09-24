@@ -1,13 +1,15 @@
 import { Route, Routes } from "react-router-dom"
+
 import Home from "./pages/Home"
-// import UrlForm from "./pages/UrlForm"
+import UrlList from "./pages/UrlList"
 
 function App() {
 
   return (
     <>
+      <Home />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<UrlList />} />
       </Routes>
     </>
   )

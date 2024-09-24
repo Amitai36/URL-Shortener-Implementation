@@ -6,9 +6,9 @@ const router = Router();
 //post req
 router.post("/shorten", shorten);
 
+router.get("/getAll", getAllShortUrl);
 //get req
 router.get("/:shortUrl", getShortUrl);
 
-router.get("/", getAllShortUrl);
 
 export default router;

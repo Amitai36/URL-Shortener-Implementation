@@ -11,9 +11,9 @@ export const useAddShortUrl = () => {
 };
 
 export const useGetShortUrl = () => {
-    useQuery(["url", getShorten])
+    return useQuery(["url", getShorten])
 };
 
 export const useGetAllShortUrl = () => {
-    useQuery(["url", getAllShorten])
+    return useQuery(["url"], getAllShorten)
 };
