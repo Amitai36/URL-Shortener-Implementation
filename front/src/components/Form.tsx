@@ -15,7 +15,6 @@ function Form() {
 
     return (
         <Container>
-            <Typography variant="h4">URL Shortener</Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <TextField
                     label="Long URL"
