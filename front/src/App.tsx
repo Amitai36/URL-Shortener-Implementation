@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import UrlList from "./pages/UrlList"
 import Analitics from "./pages/Analitics"
-import CreateUrl from "./pages/createUrl"
+import CreateUrl from "./pages/CreateUrl"
 import MuiProviderTheme from "./theme/MuiThemeProvider"
 
 function App() {

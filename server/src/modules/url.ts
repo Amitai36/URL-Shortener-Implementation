@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 
+//create a schema for mongodb's "table"
 const UrlSchema = new mongoose.Schema({
     longUrl: { type: String, required: true },
     shortUrl: { type: String, required: true, unique: true },
@@ -9,4 +10,5 @@ const UrlSchema = new mongoose.Schema({
     DateEnter: [Number],
 });
 
+//connect to url "table"
 export const UrlModel = mongoose.model('Url', UrlSchema);
