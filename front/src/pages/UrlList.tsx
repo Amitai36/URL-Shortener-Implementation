@@ -4,10 +4,11 @@ import { useGetAllShortUrl } from "../api/query"
 
 function UrlList() {
     const { data, isLoading } = useGetAllShortUrl()
-    console.log(data)
+
     if (!data || isLoading) {
-        return <h1>loading...</h1>
+        return <Typography variant="h1">loading...</Typography>
     }
+
     return (
         <div style={{ textAlign: "center" }}>
             <Typography variant="h5">short url list</Typography>

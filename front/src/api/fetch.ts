@@ -1,9 +1,9 @@
 import axios from "axios"
 
-import { FormData, ShortUrl } from "./types";
+import { FormData, shortUrl, ShortUrl } from "./types";
 
 export const addShorten = async (data: FormData) => {
-    const response = await axios.post<FormData>('http://localhost:3000/api/url/shorten', data);
+    const response = await axios.post<FormData & shortUrl>('http://localhost:3000/api/url/shorten', data);
     return response.data
 }
 

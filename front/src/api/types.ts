@@ -1,8 +1,9 @@
 export interface FormData {
     longUrl: string;
-    shortUrl: string
     expiresIn?: number;
 }
+
+export type shortUrl = { shortUrl: string }
 
 export interface ShortUrl {
     shortUrl: string

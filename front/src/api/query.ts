@@ -6,9 +6,8 @@ import { AxiosError } from "axios";
 
 export const useAddShortUrl = () => {
     return useMutation(["url"], addShorten, {
-        onSuccess: (_data, v) => {
-            console.log(_data, v)
-            toast.success(v.shortUrl)
+        onSuccess: (data) => {
+            toast.success(data.shortUrl)
         },
         onError: (e: AxiosError<{ message: string }>) => {
             toast.error(e.response?.data?.message)

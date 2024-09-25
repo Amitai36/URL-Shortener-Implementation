@@ -1,12 +1,14 @@
-import { Typography } from "@mui/material"
+import { Paper, Typography } from "@mui/material"
 
-import UrlForm from "./UrlForm"
+import Form from "../../components/Form"
 
 function CreateUrl() {
     return (
         <div style={{ textAlign: "center" }}>
             <Typography variant="h5">Create short Url</Typography>
-            <UrlForm />
+            <Paper sx={{ margin: 10 }}>
+                <Form />
+            </Paper>
         </div>
     )
 }
