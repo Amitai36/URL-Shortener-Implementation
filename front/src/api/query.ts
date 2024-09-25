@@ -1,11 +1,17 @@
 import { useMutation, useQuery } from "react-query";
 
 import { addShorten, getAllShorten, getShorten } from "./fetch";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 export const useAddShortUrl = () => {
     return useMutation(["url"], addShorten, {
         onSuccess: (_data, v) => {
-            alert(v.shortUrl)
+            console.log(_data, v)
+            toast.success(v.shortUrl)
+        },
+        onError: (e: AxiosError<{ message: string }>) => {
+            toast.error(e.response?.data?.message)
         }
     })
 };
