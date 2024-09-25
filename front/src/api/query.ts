@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import { shortUrl } from "./types";
 import { addShorten, deleteShortUrl, getAllShorten, getAnalitics, updateShortUrl } from "./fetch";
@@ -28,11 +28,13 @@ export const useGetAllShortUrl = () => {
     return useQuery(["url"], getAllShorten)
 };
 
-//create useMutation with url's key for delete an url
+//create useMutation with url's key for delete an url and when success the get req refetch by the key 
 export const useDeleteShortUrl = () => {
+    const queryClient = useQueryClient();
     return useMutation(["url"], deleteShortUrl, {
         onSuccess: () => {
             toast.success("The link has been deleted")
+            queryClient.invalidateQueries(["url"]);
         }
     })
 };

@@ -28,7 +28,7 @@ function Verification(props: VerificationProps) {
     return (
         <div>
             <Typography >Are you sure you want to delete the link?</Typography>
-            <div style={{ marginTop: "10%" }}>
+            <div style={{ marginTop: "10%", alignItems: "center" }}>
                 <Button onClick={resetDialog} color={"error"}>no</Button>
                 <Button
                     onClick={handleClick}
