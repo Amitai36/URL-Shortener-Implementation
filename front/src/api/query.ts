@@ -16,7 +16,8 @@ export const useAddShortUrl = () => {
 };
 
 export const useGetShortUrl = () => {
-    return useQuery(["url", getShorten])
+    return useMutation(["url"], getShorten, {
+    })
 };
 
 export const useGetAllShortUrl = () => {

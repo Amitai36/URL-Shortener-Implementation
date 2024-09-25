@@ -11,7 +11,7 @@ router.post("/shorten", shorten);
 router.get("/getAll", getAllShortUrl);
 
 //get req a url
-router.get("/:shortUrl", getShortUrl);
+router.put("/:shortUrl", getShortUrl);
 
 
 export default router;

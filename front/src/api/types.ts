@@ -5,8 +5,8 @@ export interface FormData {
 
 export type shortUrl = { shortUrl: string }
 
-export interface ShortUrl {
-    shortUrl: string
+export interface ShortUrl extends shortUrl {
     _id: string
-    longUrl: string
+    longUrl: string,
+    visit: number
 }

@@ -28,28 +28,26 @@ export const shorten = async (req: Request<{}, {}, { longUrl: string, expiresIn:
     }
 };
 
-export const getShortUrl = async (req: Request, res: Response) => {
-    try {
-        const urlData = await UrlModel.findOne({ shortUrl: req.params.shortUrl });
-
-        if (!urlData) {
-            return res.status(404).json({ error: 'URL not found' });
-        }
-        if (urlData.expiresAt /* && Date.now() > urlData.expiresAt */) {
-            await UrlModel.deleteOne({ shortUrl: req.params.shortUrl });
-            return res.status(410).json({ error: 'URL expired' });
-        }
-        res.redirect(urlData.longUrl);
-    } catch (error) {
-        return res.json({ message: error }).status(500)
-    }
-}
-
 export const getAllShortUrl = async (_req: Request, res: Response) => {
     try {
-        const urls = await UrlModel.find().select("shortUrl longUrl")
+        const urls = await UrlModel.find().select("shortUrl longUrl visit")
+        console.log(urls)
         return res.json(urls)
     } catch (error) {
         res.status(500).json(error)
+    }
+}
+
+export const getShortUrl = async (req: Request<{ shortUrl: string }>, res: Response) => {
+
+    try {
+        const urlData = await UrlModel.findOne({ shortUrl: req.params.shortUrl });
+        if (!urlData) {
+            return res.status(404).json({ error: 'URL not found' });
+        }
+        await UrlModel.updateOne({ shortUrl: req.params.shortUrl }, { $inc: { visit: 1 } })
+        return res.redirect(urlData.longUrl);
+    } catch (error) {
+        return res.json({ message: error }).status(500)
     }
 }
