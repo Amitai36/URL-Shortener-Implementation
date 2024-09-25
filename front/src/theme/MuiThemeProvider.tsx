@@ -9,7 +9,7 @@ interface MuiProviderThemeProps {
     children: ReactNode;
 }
 
-//create mui thene general
+//Creating a general design related to MUI
 function MuiProviderTheme(props: MuiProviderThemeProps) {
     //save chashing
     const theme = React.useMemo(
@@ -35,6 +35,9 @@ function MuiProviderTheme(props: MuiProviderThemeProps) {
                             },
                         },
                     },
+                    MuiButton: {
+                        defaultProps: { variant: "contained" }
+                    }
                 },
             }),
         []

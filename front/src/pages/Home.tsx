@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom"
 import { Create, List } from "@mui/icons-material"
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material"
 
+
+//The home page that will appear in the entire application and through which you can route
 function Home() {
     const navigate = useNavigate()
     return (
@@ -9,8 +11,14 @@ function Home() {
             <AppBar sx={{ height: "10%" }} position="static">
                 <Toolbar sx={{ alignItems: "center" }}>
                     <Typography variant="h4">URL Shortener Implementation</Typography>
-                    <IconButton onClick={() => navigate("/")} sx={{ right: 0, position: "absolute" }} ><List /></IconButton>
-                    <IconButton onClick={() => navigate("/create")} sx={{ right: 60, position: "absolute" }} ><Create /></IconButton>
+                    <IconButton onClick={() => navigate("/")}
+                        sx={{ right: 0, position: "absolute" }} >
+                        <List />
+                    </IconButton>
+                    <IconButton onClick={() => navigate("/create")}
+                        sx={{ right: 60, position: "absolute" }} >
+                        <Create />
+                    </IconButton>
                 </Toolbar>
             </AppBar>
         </div>

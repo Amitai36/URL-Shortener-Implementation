@@ -1,11 +1,12 @@
 import _ from "lodash"
-import moment from "moment"
 import { Request, Response } from "express"
 
 import { UrlModel } from "../modules/url"
 import { generateShortUrl } from "../utils/encoding";
+import { deleteShortUrlQuery, GetShortUrlParams, ShortenBody } from "../types/url";
 
-export const shorten = async (req: Request<{}, {}, { longUrl: string, expiresIn: number }>, res: Response) => {
+//add an url and reboots it
+export const shorten = async (req: Request<{}, {}, ShortenBody>, res: Response) => {
     const { longUrl, expiresIn } = req.body;
     try {
         const existingUrl = await UrlModel.findOne({ longUrl });
@@ -30,18 +31,21 @@ export const shorten = async (req: Request<{}, {}, { longUrl: string, expiresIn:
     }
 };
 
+//get all and select only shortUurl, longUrl and visit
 export const getAllShortUrl = async (_req: Request, res: Response) => {
     try {
         const urls = await UrlModel.find().select("shortUrl longUrl visit")
-        return res.json(urls)
+        return res.json(urls).status(200)
     } catch (error) {
         res.status(500).json(error)
     }
 }
 
-export const getShortUrl = async (req: Request<{ shortUrl: string }>, res: Response) => {
+//update an url by short url. increase the visit by 1 and push to entering time the current time and do redirect
+export const getShortUrl = async (req: Request<GetShortUrlParams>, res: Response) => {
+    const { shortUrl } = req.params
     try {
-        const urlData = await UrlModel.findOne({ shortUrl: req.params.shortUrl });
+        const urlData = await UrlModel.findOne({ shortUrl });
         if (!urlData) {
             return res.status(404).json({ message: 'URL not found' });
         }
@@ -56,10 +60,13 @@ export const getShortUrl = async (req: Request<{ shortUrl: string }>, res: Respo
     }
 }
 
-export const analitics = async (req: Request<{ shortUrl: string }>, res: Response) => {
+//get analitics by short url get in params
+export const analitics = async (req: Request<GetShortUrlParams>, res: Response) => {
+    const { shortUrl } = req.params
     try {
-        const urlData = await UrlModel.findOne({ shortUrl: req.params.shortUrl });
+        const urlData = await UrlModel.findOne({ shortUrl });
         if (urlData?.DateEnter) {
+            //counter by the day and send as number (unix)
             const datePerDay = _.countBy(urlData.DateEnter, (item) => new Date(new Date(item).toDateString()).getTime())
             res.json(datePerDay)
         }
@@ -68,7 +75,8 @@ export const analitics = async (req: Request<{ shortUrl: string }>, res: Respons
     }
 }
 
-export const deleteShortUrl = async (req: Request<{}, {}, {}, { id: string }>, res: Response) => {
+//delete an url by id and get id from the query
+export const deleteShortUrl = async (req: Request<{}, {}, {}, deleteShortUrlQuery>, res: Response) => {
     try {
         const { id } = req.query
         await UrlModel.findByIdAndDelete(id)
