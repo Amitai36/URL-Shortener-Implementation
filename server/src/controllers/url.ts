@@ -1,3 +1,5 @@
+import _ from "lodash"
+import moment from "moment"
 import { Request, Response } from "express"
 
 import { UrlModel } from "../modules/url"
@@ -39,14 +41,32 @@ export const getAllShortUrl = async (_req: Request, res: Response) => {
 }
 
 export const getShortUrl = async (req: Request<{ shortUrl: string }>, res: Response) => {
-
     try {
         const urlData = await UrlModel.findOne({ shortUrl: req.params.shortUrl });
         if (!urlData) {
-            return res.status(404).json({ error: 'URL not found' });
+            return res.status(404).json({ message: 'URL not found' });
         }
-        await UrlModel.updateOne({ shortUrl: req.params.shortUrl }, { $inc: { visit: 1 } })
+        await UrlModel.updateOne({ shortUrl: req.params.shortUrl },
+            {
+                $inc: { visit: 1 },
+                $push: { DateEnter: new Date().getTime() }
+            })
         return res.redirect(urlData.longUrl);
+    } catch (error) {
+        return res.json({ message: error }).status(500)
+    }
+}
+
+export const analitics = async (req: Request<{ shortUrl: string }>, res: Response) => {
+    console.log(req.params)
+    try {
+        const urlData = await UrlModel.findOne({ shortUrl: req.params.shortUrl });
+        console.log(urlData)
+        if (urlData?.DateEnter) {
+            const datePerDay = _.countBy(urlData.DateEnter, (item) => new Date(new Date(item).toDateString()).getTime())
+            console.log(datePerDay)
+            res.json(datePerDay)
+        }
     } catch (error) {
         return res.json({ message: error }).status(500)
     }

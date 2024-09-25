@@ -1,8 +1,9 @@
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 import { useMutation, useQuery } from "react-query";
 
-import { addShorten, getAllShorten, getShorten } from "./fetch";
-import { toast } from "react-toastify";
-import { AxiosError } from "axios";
+import { addShorten, getAllShorten, getAnalitics, getShorten } from "./fetch";
+import { shortUrl } from "./types";
 
 export const useAddShortUrl = () => {
     return useMutation(["url"], addShorten, {
@@ -22,4 +23,8 @@ export const useGetShortUrl = () => {
 
 export const useGetAllShortUrl = () => {
     return useQuery(["url"], getAllShorten)
+};
+
+export const useGetAnalitics = (url: shortUrl) => {
+    return useQuery(["analitics"], () => getAnalitics(url))
 };

@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { getAllShortUrl, getShortUrl, shorten } from "../controllers/url";
+import { analitics, getAllShortUrl, getShortUrl, shorten } from "../controllers/url";
 
 const router = Router();
 
@@ -12,6 +12,8 @@ router.get("/getAll", getAllShortUrl);
 
 //get req a url
 router.put("/:shortUrl", getShortUrl);
+
+router.get("/analitics/:shortUrl", analitics);
 
 
 export default router;

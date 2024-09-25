@@ -10,3 +10,5 @@ export interface ShortUrl extends shortUrl {
     longUrl: string,
     visit: number
 }
+
+export type AnaliticsType = Record<number, number> 

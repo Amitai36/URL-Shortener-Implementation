@@ -11,6 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 type FormSchema = z.infer<typeof urlSchema>;
 
 function Form() {
+    
     const { register, handleSubmit, formState: { errors } } = useForm<FormSchema>({ resolver: zodResolver(urlSchema) });
     const { mutate } = useAddShortUrl()
     const onSubmit = async (data: FormData) => {
