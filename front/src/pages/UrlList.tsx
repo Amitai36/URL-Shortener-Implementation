@@ -1,13 +1,16 @@
-import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
+import { Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 
 import { shortUrl } from "../api/types"
 import { useGetAllShortUrl, useGetShortUrl } from "../api/query"
-import { Analytics } from "@mui/icons-material"
+import { Analytics, DeleteForever } from "@mui/icons-material"
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
+import DialogComponent from "../components/DialogComponent"
+import Verification from "./Verification"
 
 function UrlList() {
     const { data, isLoading } = useGetAllShortUrl()
-
+    const [dialog, setDialog] = useState({ open: false, id: '' })
     const navigate = useNavigate()
     const { mutate } = useGetShortUrl()
 
@@ -46,12 +49,16 @@ function UrlList() {
                                 <TableCell align="center">{item.longUrl}</TableCell>
                                 <TableCell align="center">{item.visit}</TableCell>
                                 <TableCell align="center"><IconButton onClick={() => navigate("/analitics", { state: { shortUrl: item.shortUrl } })}><Analytics /></IconButton></TableCell>
+                                <Button onClick={() => setDialog(prev => { return { id: item._id, open: !prev } })}><DeleteForever /></Button>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-
+            <DialogComponent title={{ color: "red", text: "Certificate verification" }}
+                open={dialog?.open ?? false}
+                whenClose={() => setDialog(() => { return { open: false, id: "" } })}
+                content={<Verification setDialog={setDialog} />} />
         </div>
     )
 }
