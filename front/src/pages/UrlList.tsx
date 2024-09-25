@@ -4,15 +4,17 @@ import { Analytics, DeleteForever } from "@mui/icons-material"
 import { Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 
 import { shortUrl } from "../api/types"
-import Verification from "./verification"
+import Verification from "./Verification"
 import DialogComponent from "../components/DialogComponent"
-import { useGetAllShortUrl, useGetShortUrl } from "../api/query"
+import { useGetAllShortUrl, useUpdateShortUrl } from "../api/query"
 
+
+//Displays dry details about the URL by table and reading from the data base
 function UrlList() {
     const { data, isLoading } = useGetAllShortUrl()
     const [dialog, setDialog] = useState({ open: false, id: '' })
     const navigate = useNavigate()
-    const { mutate } = useGetShortUrl()
+    const { mutate } = useUpdateShortUrl()
 
     if (isLoading) {
         return <Typography variant="h4">Loading...</Typography>
@@ -21,6 +23,7 @@ function UrlList() {
         return <Typography variant="h4">NO DATA</Typography>
     }
 
+    //When the user extracts it triggers a new req
     const handleClick = (shortUrl: shortUrl) => {
         mutate(shortUrl)
     }
@@ -48,15 +51,18 @@ function UrlList() {
                                 <TableCell align="center">{item.shortUrl}</TableCell>
                                 <TableCell align="center">{item.longUrl}</TableCell>
                                 <TableCell align="center">{item.visit}</TableCell>
+                                {/* sending router state */}
                                 <TableCell align="center"><IconButton onClick={() => navigate("/analitics", { state: { shortUrl: item.shortUrl } })}><Analytics /></IconButton></TableCell>
-                                <Button onClick={() => setDialog(prev => { return { id: item._id, open: !prev.open } })}><DeleteForever /></Button>
+                                {/* Opening a model for secondary user authentication */}
+                                <Button
+                                    onClick={() => setDialog(prev => { return { id: item._id, open: !prev.open } })}><DeleteForever /></Button>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <DialogComponent title={{ color: "red", text: "Certificate verification" }}
-                open={dialog.open ?? false}
+            <DialogComponent title={{ color: "yellow", text: "Certificate verification" }}
+                open={dialog.open}
                 whenClose={() => setDialog(() => { return { open: false, id: "" } })}
                 content={<Verification open={dialog.open} id={dialog.id} setDialog={setDialog} />} />
         </div>

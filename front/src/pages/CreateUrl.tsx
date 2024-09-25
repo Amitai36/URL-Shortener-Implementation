@@ -1,7 +1,7 @@
 import { Paper, Typography } from "@mui/material"
 
-import Form from "../../components/Form"
-
+import Form from "../components/Form"
+//main page for create a new sort url
 function CreateUrl() {
     return (
         <div style={{ textAlign: "center" }}>

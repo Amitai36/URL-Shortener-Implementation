@@ -4,9 +4,12 @@ import { useLocation } from "react-router-dom"
 
 import { useGetAnalitics } from "../api/query"
 
-function Analitics() {
 
+//main page for Analitics and display on graph
+function Analitics() {
+  //get a state form useNavigate
   const { state: { shortUrl } } = useLocation()
+  //get call from db
   const { data, isLoading } = useGetAnalitics({ shortUrl })
 
   if (isLoading) {
@@ -15,6 +18,7 @@ function Analitics() {
   if (!data && !isLoading) {
     return <Typography variant="h4">NO DATA</Typography>
   }
+  //order by x, y from data
   const x = Object.keys(data)
   const y = Object.values(data)
 

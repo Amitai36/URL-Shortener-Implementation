@@ -2,9 +2,10 @@ import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useMutation, useQuery } from "react-query";
 
-import { addShorten, deleteShortUrl, getAllShorten, getAnalitics, getShorten } from "./fetch";
 import { shortUrl } from "./types";
+import { addShorten, deleteShortUrl, getAllShorten, getAnalitics, updateShortUrl } from "./fetch";
 
+//create useMutation with url's key for create an url
 export const useAddShortUrl = () => {
     return useMutation(["url"], addShorten, {
         onSuccess: (data) => {
@@ -16,15 +17,18 @@ export const useAddShortUrl = () => {
     })
 };
 
-export const useGetShortUrl = () => {
-    return useMutation(["url"], getShorten, {
+//create useMutation with url's key for update an url
+export const useUpdateShortUrl = () => {
+    return useMutation(["url"], updateShortUrl, {
     })
 };
 
+//create useQuery with url's key for get all urls
 export const useGetAllShortUrl = () => {
     return useQuery(["url"], getAllShorten)
 };
 
+//create useMutation with url's key for delete an url
 export const useDeleteShortUrl = () => {
     return useMutation(["url"], deleteShortUrl, {
         onSuccess: () => {
@@ -33,6 +37,7 @@ export const useDeleteShortUrl = () => {
     })
 };
 
+//create useQuery with analitics's key for get analitics on an url
 export const useGetAnalitics = (url: shortUrl) => {
     return useQuery(["analitics"], () => getAnalitics(url))
 };
