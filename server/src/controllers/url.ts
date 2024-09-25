@@ -31,7 +31,6 @@ export const shorten = async (req: Request<{}, {}, { longUrl: string, expiresIn:
 
 export const getShortUrl = async (req: Request, res: Response) => {
     try {
-
         const urlData = await UrlModel.findOne({ shortUrl: req.params.shortUrl });
 
         if (!urlData) {
@@ -41,7 +40,6 @@ export const getShortUrl = async (req: Request, res: Response) => {
             await UrlModel.deleteOne({ shortUrl: req.params.shortUrl });
             return res.status(410).json({ error: 'URL expired' });
         }
-
         res.redirect(urlData.longUrl);
     } catch (error) {
         return res.json({ message: error }).status(500)
