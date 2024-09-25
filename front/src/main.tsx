@@ -12,7 +12,7 @@ const queryClient = new QueryClient()
 createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-      <ToastContainer position='bottom-right' />
+      <ToastContainer theme='dark' position='bottom-right' />
       <StrictMode>
         <App />
       </StrictMode>
