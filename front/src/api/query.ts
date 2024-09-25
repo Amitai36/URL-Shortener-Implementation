@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useMutation, useQuery } from "react-query";
 
-import { addShorten, getAllShorten, getAnalitics, getShorten } from "./fetch";
+import { addShorten, deleteShortUrl, getAllShorten, getAnalitics, getShorten } from "./fetch";
 import { shortUrl } from "./types";
 
 export const useAddShortUrl = () => {
@@ -23,6 +23,14 @@ export const useGetShortUrl = () => {
 
 export const useGetAllShortUrl = () => {
     return useQuery(["url"], getAllShorten)
+};
+
+export const useDeleteShortUrl = () => {
+    return useMutation(["url"], deleteShortUrl, {
+        onSuccess: () => {
+            toast.success("The link has been deleted")
+        }
+    })
 };
 
 export const useGetAnalitics = (url: shortUrl) => {

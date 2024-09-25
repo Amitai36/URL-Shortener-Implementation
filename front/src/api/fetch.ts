@@ -20,4 +20,7 @@ export const getAllShorten = async () => {
 export const getAnalitics = async (url: shortUrl) => {
     const response = await axios.get<AnaliticsType>(`http://localhost:3000/api/url/analitics/${url.shortUrl}`).then(res => res.data)
     return response
+}
+export const deleteShortUrl = async (id: string) => {
+    await axios.delete(`http://localhost:3000/api/url`, { params: { id } });
 } 

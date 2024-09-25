@@ -33,7 +33,6 @@ export const shorten = async (req: Request<{}, {}, { longUrl: string, expiresIn:
 export const getAllShortUrl = async (_req: Request, res: Response) => {
     try {
         const urls = await UrlModel.find().select("shortUrl longUrl visit")
-        console.log(urls)
         return res.json(urls)
     } catch (error) {
         res.status(500).json(error)
@@ -58,15 +57,22 @@ export const getShortUrl = async (req: Request<{ shortUrl: string }>, res: Respo
 }
 
 export const analitics = async (req: Request<{ shortUrl: string }>, res: Response) => {
-    console.log(req.params)
     try {
         const urlData = await UrlModel.findOne({ shortUrl: req.params.shortUrl });
-        console.log(urlData)
         if (urlData?.DateEnter) {
             const datePerDay = _.countBy(urlData.DateEnter, (item) => new Date(new Date(item).toDateString()).getTime())
-            console.log(datePerDay)
             res.json(datePerDay)
         }
+    } catch (error) {
+        return res.json({ message: error }).status(500)
+    }
+}
+
+export const deleteShortUrl = async (req: Request<{}, {}, {}, { id: string }>, res: Response) => {
+    try {
+        const { id } = req.query
+        await UrlModel.findByIdAndDelete(id)
+        res.status(204).send()
     } catch (error) {
         return res.json({ message: error }).status(500)
     }

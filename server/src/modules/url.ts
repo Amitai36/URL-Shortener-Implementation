@@ -6,7 +6,7 @@ const UrlSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     expiresAt: { type: Date },
     visit: { type: Number },
-    DateEnter: [Number]
+    DateEnter: [Number],
 });
 
 export const UrlModel = mongoose.model('Url', UrlSchema);

@@ -1,12 +1,12 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { Analytics, DeleteForever } from "@mui/icons-material"
 import { Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 
 import { shortUrl } from "../api/types"
-import { useGetAllShortUrl, useGetShortUrl } from "../api/query"
-import { Analytics, DeleteForever } from "@mui/icons-material"
-import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import Verification from "./verification"
 import DialogComponent from "../components/DialogComponent"
-import Verification from "./Verification"
+import { useGetAllShortUrl, useGetShortUrl } from "../api/query"
 
 function UrlList() {
     const { data, isLoading } = useGetAllShortUrl()
@@ -49,16 +49,16 @@ function UrlList() {
                                 <TableCell align="center">{item.longUrl}</TableCell>
                                 <TableCell align="center">{item.visit}</TableCell>
                                 <TableCell align="center"><IconButton onClick={() => navigate("/analitics", { state: { shortUrl: item.shortUrl } })}><Analytics /></IconButton></TableCell>
-                                <Button onClick={() => setDialog(prev => { return { id: item._id, open: !prev } })}><DeleteForever /></Button>
+                                <Button onClick={() => setDialog(prev => { return { id: item._id, open: !prev.open } })}><DeleteForever /></Button>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
             <DialogComponent title={{ color: "red", text: "Certificate verification" }}
-                open={dialog?.open ?? false}
+                open={dialog.open ?? false}
                 whenClose={() => setDialog(() => { return { open: false, id: "" } })}
-                content={<Verification setDialog={setDialog} />} />
+                content={<Verification open={dialog.open} id={dialog.id} setDialog={setDialog} />} />
         </div>
     )
 }
