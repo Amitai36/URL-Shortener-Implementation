@@ -1,6 +1,5 @@
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { Button, TextField, Container, Typography } from '@mui/material';
+import { Button, TextField, Container } from '@mui/material';
 
 import { FormData } from '../api/types';
 import { useAddShortUrl } from '../api/query';
@@ -21,12 +20,6 @@ function Form() {
                     variant="outlined"
                     fullWidth
                     {...register('longUrl', { required: true })}
-                />
-                <TextField
-                    label="short URL"
-                    variant="outlined"
-                    fullWidth
-                    {...register('shortUrl', { required: true })}
                 />
                 <TextField
                     label="Expiration (seconds)"
