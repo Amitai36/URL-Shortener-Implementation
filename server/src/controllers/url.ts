@@ -7,7 +7,6 @@ export const shorten = async (req: Request<{}, {}, { longUrl: string, expiresIn:
     const { longUrl, expiresIn } = req.body;
     try {
         const existingUrl = await UrlModel.findOne({ longUrl });
-        console.log(existingUrl);
 
         if (existingUrl) {
             return res.status(403).json({ message: "The link already exists" }).end();
@@ -17,7 +16,7 @@ export const shorten = async (req: Request<{}, {}, { longUrl: string, expiresIn:
             longUrl,
             shortUrl,
             expiresAt: expiresIn ? Date.now() + expiresIn * 1000 : null,
-            visited: 0
+            visit: 0
         });
         await newUrl.save();
         return res.json({ shortUrl });
