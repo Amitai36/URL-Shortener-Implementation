@@ -43,6 +43,55 @@ This project is a URL Shortener web application built using React (with TypeScri
 - front - npm run dev
 - back - npm start
 
+# Architecture and Design Choices
+
+## Frontend Architecture
+#### React with TypeScript:
+
+- React: Provides a component-based architecture for building reusable UI components.
+- TypeScript: Enhances code quality and maintainability through static typing.
+#### State Management:
+
+- React Query: Efficiently handles server state, data fetching, and caching.
+
+#### Styling:
+- MUI: Ensures a responsive and modern design with pre-designed components.
+
+#### Form Handling:
+- React Hook Form: Simplifies form validation and submission.
+
+#### Validation:
+- Zod: Used for schema validation to ensure data integrity.
+### Backend Architecture
+- Node.js and Express:
+
+- Node.js: Allows for asynchronous request handling.
+- Express: Simplifies routing and middleware management.
+- MongoDB:
+A flexible schema for storing URL mappings and analytics data.
+- RESTful API:
+Exposes endpoints for URL shortening, analytics retrieval, and deletion.
+### Analytics:
+Tracks and stores usage statistics for insights into visit patterns.
+### Docker Containerization:
+ Both frontend and backend services are containerized for consistent environments.
+### Docker Compose:
+Manages multi-container applications, including MongoDB.
+Design Choices
+Modularity: Structured to separate concerns, enhancing code readability and testability.
+
+### Responsive Design:
+ Ensures accessibility across devices using responsive design principles.
+
+### Error Handling:
+ Comprehensive strategies for providing meaningful feedback during interactions.
+
+### User Experience:
+Focused on usability with clear navigation and feedback mechanisms.
+
+### Conclusion
+The architecture and design choices made in this URL Shortener application prioritize performance, maintainability, and user experience. By leveraging modern technologies and best practices, the application provides a reliable and efficient solution for URL shortening and management.
+
 ### Clone the Repository
 
 ```bash
